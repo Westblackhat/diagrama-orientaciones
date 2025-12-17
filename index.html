@@ -1,31 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Diagrama interactivo</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Diagrama</title>
   <style>
-    body { margin: 0; }
-    #openseadragon {
-      width: 100vw;
-      height: 100vh;
-    }
+    html, body { height: 100%; margin: 0; }
+    #wrap { height: 100%; width: 100%; overflow: hidden; }
+    object { height: 100%; width: 100%; }
   </style>
 </head>
 <body>
+  <div id="wrap">
+    <object id="svgObj" type="image/svg+xml" data="diagrama_profesores.svg"></object>
+  </div>
 
-<div id="openseadragon"></div>
-
-<script>
-  OpenSeadragon({
-    id: "openseadragon",
-    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-    tileSources: {
-      type: "image",
-      url: "diagrama_profesores.svg"
-    }
-  });
-</script>
-
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  <script>
+    const obj = document.getElementById("svgObj");
+    obj.addEventListener("load", () => {
+      const svg = obj.contentDocument.querySelector("svg");
+      svgPanZoom(svg, {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true,
+        minZoom: 0.5,
+        maxZoom: 20
+      });
+    });
+  </script>
 </body>
 </html>
