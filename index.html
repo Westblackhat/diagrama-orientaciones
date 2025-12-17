@@ -4,29 +4,65 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Diagrama</title>
+
   <style>
-    html, body { height: 100%; margin: 0; }
-    #wrap { height: 100%; width: 100%; overflow: hidden; }
-    object { height: 100%; width: 100%; }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    #wrap {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    object {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* 🔍 AUMENTAR TAMAÑO DE BOTONES DE ZOOM */
+    .svg-pan-zoom-control {
+      transform: scale(1.8);           /* tamaño general */
+      transform-origin: top right;
+    }
+
+    /* Área táctil más grande */
+    .svg-pan-zoom-control button {
+      width: 48px !important;
+      height: 48px !important;
+    }
   </style>
 </head>
+
 <body>
   <div id="wrap">
-    <object id="svgObj" type="image/svg+xml" data="diagrama_profesores.svg"></object>
+    <object
+      id="svgObj"
+      type="image/svg+xml"
+      data="diagrama_profesores.svg">
+    </object>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
   <script>
     const obj = document.getElementById("svgObj");
+
     obj.addEventListener("load", () => {
       const svg = obj.contentDocument.querySelector("svg");
+
       svgPanZoom(svg, {
         zoomEnabled: true,
         controlIconsEnabled: true,
         fit: true,
         center: true,
         minZoom: 0.5,
-        maxZoom: 20
+        maxZoom: 20,
+
+        // 🧠 UX mejor en móvil
+        zoomScaleSensitivity: 0.25
       });
     });
   </script>
